@@ -24,4 +24,4 @@ const sumNumbers = async (fileA, fileB) => {
     }
 }
 
-sumNumbers('a.txt', 'b.txt');
+sumNumbers('./data/a.txt', './data/b.txt');
