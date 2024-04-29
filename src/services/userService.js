@@ -38,10 +38,12 @@ const addUser = async (body) => {
 
 const updateUserById = async (userId, body) => {
   try {
-    const initialUser = await getUsersById(userId);
+    const initialUser = await getUserById(userId);
     const usersList = await getUsers();
     const updatedUser = { ...initialUser, ...body };
-    const updatedUserList = usersList.map((user) => (id === userId ? updatedUser : user));
+    const updatedUserList = usersList.map((user) =>
+      user.id === userId ? updatedUser : user
+    );
     await fs.writeFile(users, JSON.stringify(updatedUserList), "utf8");
     return updatedUser;
   } catch (error) {
