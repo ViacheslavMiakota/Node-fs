@@ -1,4 +1,5 @@
 const express = require("express");
+const { validateUser } = require("../middlewares/validates");
 
 const usersRouter = express.Router();
 const {
@@ -9,7 +10,7 @@ const {
   deleteUserController,
 } = require("../controllers/userController");
 
-usersRouter.post("/", addUserController);
+usersRouter.post("/", validateUser, addUserController);
 
 usersRouter.get("/", getUsersController);
 

@@ -1,1 +1,26 @@
-[{"id":"00bb1905-7290-492b-9055-d0728bd9bcf8","email":"Jeck2@gmail.com","name":"Jeck2","role":"admin2"},{"id":"351ba075-3838-4d85-8741-87615d44edfe","email":"Lary@gmail.com","name":"Laryq","role":"admin"},{"id":"7a569d58-0781-478d-9351-a0c73c0a4264","email":"Dan@gmail.com","name":"Dan","role":"user"},{"id":"8fe2bb30-82b5-4a58-9987-9d9edc11f8ca","email":"admin@gmail.com","name":"Sem2","role":"admin"}]
+[
+  {
+    "id": "00bb1905-7290-492b-9055-d0728bd9bcf8",
+    "email": "Jeck2@gmail.com",
+    "name": "Jeck2",
+    "role": "admin2"
+  },
+  {
+    "id": "351ba075-3838-4d85-8741-87615d44edfe",
+    "email": "Lary@gmail.com",
+    "name": "Laryq",
+    "role": "admin"
+  },
+  {
+    "id": "7a569d58-0781-478d-9351-a0c73c0a4264",
+    "email": "Dan@gmail.com",
+    "name": "Dan",
+    "role": "user"
+  },
+  {
+    "id": "8fe2bb30-82b5-4a58-9987-9d9edc11f8ca",
+    "email": "admin@gmail.com",
+    "name": "Sem2",
+    "role": "admin"
+  }
+]
