@@ -22,6 +22,7 @@ const getUserByIdController = async (req, res, next) => {
     const { id } = req.params;
     const user = await getUserById(id);
     // console.log(user);
+    // console.log(user.id);
     if (!user) {
       return next({
         status: statusCode.NOT_FOUND,
