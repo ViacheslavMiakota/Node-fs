@@ -1,8 +1,13 @@
 const { MongoClient } = require("mongodb");
+const { collections } = require("../model/collections");
 
-const MONGO_DB_CONNECTION = process.env.DB_URI || "";
+require("dotenv").config();
 
-const DB_NAME = process.env.MONGO_DB_NAME;
+const { DB_URI, MONGO_DB_NAME } = process.env;
+
+const MONGO_DB_CONNECTION = DB_URI || "";
+
+const DB_NAME = MONGO_DB_NAME;
 
 require("colors");
 
@@ -13,7 +18,7 @@ const connectDb = async () => {
     const connect = await client.connect();
     const db = connect.db(DB_NAME);
     const users = db.collection("users");
-    // console.log(users);
+    collections.Users = users;
     console.log(`Database connection successful`.white.bold.bgGreen);
   } catch (error) {
     console.log("Can not conect to the  DB: ".white.bgRed.bold, error);

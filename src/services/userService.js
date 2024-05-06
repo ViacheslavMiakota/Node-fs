@@ -1,14 +1,14 @@
 const fs = require("fs").promises;
-const path = require("path");
-const { v4: uuidv4 } = require("uuid");
+const { getCollections } = require("../model/collections");
 
-const users = path.join(__dirname, "../data/users.json");
+const collections = getCollections;
 
 const getUsers = async () => {
   try {
-    const usersList = await fs.readFile(users, "utf8");
-    const parsedUsersList = JSON.parse(usersList);
-    return parsedUsersList;
+    const { Users } = collections;
+    const usersList = await Users.find({}).toArray();
+    console.log(usersList);
+    return usersList;
   } catch (error) {
     throw error;
   }
@@ -26,11 +26,10 @@ const getUserById = async (userId) => {
 
 const addUser = async (body) => {
   try {
-    const usersList = await getUsers();
-    const newUser = { id: uuidv4(), ...body };
-    const newUserList = [...usersList, newUser];
-    await fs.writeFile(users, JSON.stringify(newUserList), "utf8");
-    return newUser;
+    const { Users } = collections;
+    const newUser = await Users.insertOne(body);
+    const savedUser = await getUserById(newUser.insertedId);
+    return savedUser;
   } catch (error) {
     throw error;
   }
@@ -55,7 +54,6 @@ const deleteUserById = async (userId) => {
   try {
     const usersList = await getUsers();
     const newUsersList = usersList.filter(({ id }) => userId !== id);
-    console.log({ newUsersList });
     await fs.writeFile(users, JSON.stringify(newUsersList), "utf8");
     return newUsersList;
   } catch (error) {
