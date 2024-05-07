@@ -9,12 +9,8 @@ const {
 const { statusCode } = require("../helpers/codeError");
 
 const getUsersController = async (req, res, next) => {
-  try {
-    const users = await getUsers();
-    res.status(statusCode.OK).json(users);
-  } catch (error) {
-    next(error);
-  }
+  const users = await getUsers();
+  res.status(statusCode.OK).json(users);
 };
 
 const getUserByIdController = async (req, res, next) => {

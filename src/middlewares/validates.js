@@ -1,8 +1,6 @@
 const Joi = require("joi");
 const { statusCode } = require("../helpers/codeError");
-
-const { getCollections } = require("../model/collections");
-const collections = getCollections();
+const { User } = require("../model/userModel");
 
 const userSchema = Joi.object({
   name: Joi.string().required(),
@@ -19,9 +17,13 @@ exports.validateUser = async (req, res, next) => {
         .status(statusCode.BAD_REQUEST)
         .json({ message: error.details[0].message });
     }
-    const { Users } = collections;
-    const existingUser = await Users.findOne({ phoneNumber: req.body.phoneNumber });
 
+    const existingUserByEmail = await User.findOne({ email: req.body.email });
+    const existingUser = await User.findOne({ phoneNumber: req.body.phoneNumber });
+
+    if (existingUserByEmail) {
+      return res.status(statusCode.BAD_REQUEST).json({ message: "Email already exists" });
+    }
     if (existingUser) {
       return res
         .status(statusCode.BAD_REQUEST)
@@ -31,4 +33,22 @@ exports.validateUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+const movieSchema = Joi.object({
+  name: Joi.string().required(),
+  genre: Joi.string().required(),
+  year: Joi.number().required(),
+  rating: Joi.number(),
+  views: Joi.number(),
+});
+
+exports.validateMovie = async (req, res, next) => {
+  const { error } = movieSchema.validate(req.body);
+
+  if (error) {
+    return res.status(statusCode.BAD_REQUEST).json({ message: error.details[0].message });
+  }
+
+  next();
 };
