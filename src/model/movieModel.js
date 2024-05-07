@@ -1,0 +1,15 @@
+const mongoose = require("mongoose");
+
+const { Schema } = mongoose;
+
+const MovieShema = new Schema({
+  name: { type: String, required: [true, "Email is required"], unique: true },
+  genre: { type: String, required: [true, "Set name for user"] },
+  rating: { type: Number, required: true },
+  year: { type: Number, required: true },
+  views: { type: Number, required: true },
+});
+
+const Movie = mongoose.model("movie", MovieShema);
+
+module.exports = { Movie };
