@@ -62,8 +62,7 @@ const updateUserByIdController = async (req, res, next) => {
 const deleteUserController = async (req, res, next) => {
   try {
     const id = req.params.userId;
-    const users = await getUsers();
-    const userDelete = users.find((user) => user.id === id);
+    const userDelete = await getUserById(id);
     if (!userDelete) {
       return next({
         status: statusCode.BAD_REQUEST,

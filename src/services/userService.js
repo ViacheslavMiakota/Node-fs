@@ -1,7 +1,7 @@
-const fs = require("fs").promises;
+const { ObjectId } = require("mongodb");
 const { getCollections } = require("../model/collections");
 
-const collections = getCollections;
+const collections = getCollections();
 
 const getUsers = async () => {
   try {
@@ -16,8 +16,8 @@ const getUsers = async () => {
 
 const getUserById = async (userId) => {
   try {
-    const usersList = await getUsers();
-    const userById = usersList.find(({ id }) => userId === id);
+    const { Users } = collections;
+    const userById = await Users.findOne({ _id: new ObjectId(userId) });
     return userById;
   } catch (error) {
     throw error;
@@ -37,13 +37,9 @@ const addUser = async (body) => {
 
 const updateUserById = async (userId, body) => {
   try {
-    const initialUser = await getUserById(userId);
-    const usersList = await getUsers();
-    const updatedUser = { ...initialUser, ...body };
-    const updatedUserList = usersList.map((user) =>
-      user.id === userId ? updatedUser : user
-    );
-    await fs.writeFile(users, JSON.stringify(updatedUserList), "utf8");
+    const { Users } = collections;
+    await Users.updateOne({ _id: new ObjectId(userId) }, { $set: body });
+    const updatedUser = await getUserById(userId);
     return updatedUser;
   } catch (error) {
     throw error;
@@ -52,9 +48,9 @@ const updateUserById = async (userId, body) => {
 
 const deleteUserById = async (userId) => {
   try {
-    const usersList = await getUsers();
-    const newUsersList = usersList.filter(({ id }) => userId !== id);
-    await fs.writeFile(users, JSON.stringify(newUsersList), "utf8");
+    const { Users } = collections;
+    await Users.updateOne({ _id: new ObjectId(userId) });
+    const newUsersList = await getUsers();
     return newUsersList;
   } catch (error) {
     throw error;
