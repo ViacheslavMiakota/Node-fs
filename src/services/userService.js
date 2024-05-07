@@ -49,7 +49,7 @@ const updateUserById = async (userId, body) => {
 const deleteUserById = async (userId) => {
   try {
     const { Users } = collections;
-    await Users.updateOne({ _id: new ObjectId(userId) });
+    await Users.deleteOne({ _id: new ObjectId(userId) });
     const newUsersList = await getUsers();
     return newUsersList;
   } catch (error) {

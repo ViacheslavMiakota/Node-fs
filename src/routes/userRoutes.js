@@ -10,14 +10,14 @@ const {
   deleteUserController,
 } = require("../controllers/userController");
 
-usersRouter.post("/", validateUser, addUserController);
+usersRouter.post("/user", validateUser, addUserController);
 
-usersRouter.get("/", getUsersController);
+usersRouter.get("/users", getUsersController);
 
-usersRouter.get("/:id", getUserByIdController);
+usersRouter.get("/user/:userId", getUserByIdController);
 
-usersRouter.patch("/:userId", updateUserByIdController);
+usersRouter.patch("/user/:userId", updateUserByIdController);
 
-usersRouter.delete("/:userId", deleteUserController);
+usersRouter.delete("/user/:userId", deleteUserController);
 
 module.exports = usersRouter;
