@@ -4,12 +4,9 @@ const { statusCode } = require("../helpers/codeError");
 const allowedRoles = ["admin", "user", "moderator"];
 
 const userSchema = Joi.object({
-  id: Joi.string().required(),
   name: Joi.string().required(),
   email: Joi.string().email().required(),
-  role: Joi.string()
-    .valid(...allowedRoles)
-    .required(),
+  phoneNumber: Joi.string().pattern(new RegExp("^[0-9]{10}$")).required(),
 });
 
 exports.validateUser = (req, res, next) => {

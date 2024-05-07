@@ -19,8 +19,8 @@ const getUsersController = async (req, res, next) => {
 
 const getUserByIdController = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await getUserById(id);
+    const { userId } = req.params;
+    const user = await getUserById(userId);
     if (!user) {
       return next({
         status: statusCode.NOT_FOUND,
