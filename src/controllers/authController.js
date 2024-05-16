@@ -1,27 +1,24 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
 const {
   registerServise,
-  loginSevise,
+  loginServise,
   getCurentUserServise,
 } = require("../services/authServise");
 
 const { statusCode } = require("../helpers/codeError");
 
-const register = async (req, res, next) => {
-  const { email, password } = req.body;
-  try {
-    await registerServise(email, password);
+const registerController = async (req, res, next) => {
+  const { email, password, name, phoneNumber } = req.body;
+  await registerServise(email, password, name, phoneNumber);
 
-    res.status(statusCode.CREATED).json({ status: "success" });
-  } catch (error) {
-    res
-      .status(error.statusCode || statusCode.INTERNAL_SERVER_ERROR)
-      .json({ message: error.message });
-  }
+  res.status(statusCode.CREATED).json({ status: "success" });
 };
-const login = async (req, res, next) => {};
+const loginController = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const token = await loginServise(email, password);
+  console.log(token);
+  res.status(statusCode.CREATED).json(token);
+};
 const getCurentUser = async (req, res, next) => {};
 
-module.exports = { register, login, getCurentUser };
+module.exports = { registerController, loginController, getCurentUser };

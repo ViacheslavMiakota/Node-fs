@@ -11,7 +11,7 @@ const UserSchema = new Schema(
     },
     name: {
       type: String,
-      // required: [true, "Set name for user"],
+      required: [true, "Set name for user"],
     },
     password: {
       type: String,
@@ -24,7 +24,7 @@ const UserSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      // required: [true, "User phone number required"],
+      required: [true, "User phone number required"],
       validate: {
         validator: function (value) {
           return /\d{3}-\d{3}-\d{4}/.test(value);

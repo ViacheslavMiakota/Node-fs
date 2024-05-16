@@ -9,12 +9,13 @@ const {
   updateUserByIdController,
   deleteUserController,
 } = require("../controllers/userController");
+const { asyncWrapper } = require("../helpers/apiHelpers");
 
-usersRouter.post("/user", validateUser, addUserController);
+usersRouter.post("/user", validateUser, asyncWrapper(addUserController));
 
-usersRouter.get("/users", getUsersController);
+usersRouter.get("/users", asyncWrapper(getUsersController));
 
-usersRouter.get("/user/:userId", getUserByIdController);
+usersRouter.get("/user/:userId", asyncWrapper(getUserByIdController));
 
 usersRouter.patch("/user/:userId", updateUserByIdController);
 

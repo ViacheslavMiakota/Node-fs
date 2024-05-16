@@ -10,15 +10,18 @@ const {
   updateMovieByIdController,
   deleteMovieController,
 } = require("../controllers/movieController");
+const { asyncWrapper } = require("../helpers/apiHelpers");
 
-moviesRouter.post("/movie", addMovieController);
+const { authGuard } = require("../middlewares/authGuard");
 
-moviesRouter.get("/movies", getMoviesController);
+moviesRouter.post("/movie", asyncWrapper(addMovieController));
 
-moviesRouter.get("/movie/:movieId", getMovieByIdController);
+moviesRouter.get("/movies", authGuard, asyncWrapper(getMoviesController));
 
-moviesRouter.patch("/movie/:movieId", updateMovieByIdController);
+moviesRouter.get("/movie/:movieId", asyncWrapper(getMovieByIdController));
 
-moviesRouter.delete("/movie/:movieId", deleteMovieController);
+moviesRouter.patch("/movie/:movieId", asyncWrapper(updateMovieByIdController));
+
+moviesRouter.delete("/movie/:movieId", asyncWrapper(deleteMovieController));
 
 module.exports = moviesRouter;

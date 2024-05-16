@@ -1,12 +1,16 @@
 const express = require("express");
 const authRouter = express.Router();
 
-const { register, login, getCurentUser } = require("../controllers/authController");
+const {
+  registerController,
+  loginController,
+  getCurentUser,
+} = require("../controllers/authController");
 const { asyncWrapper } = require("../helpers/apiHelpers");
 
-authRouter.post("/register", asyncWrapper(register));
+authRouter.post("/register", asyncWrapper(registerController));
 
-authRouter.post("/login", login);
+authRouter.post("/login", asyncWrapper(loginController));
 
 authRouter.get("/curent", getCurentUser);
 
