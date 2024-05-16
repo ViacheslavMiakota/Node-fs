@@ -16,7 +16,6 @@ const loginController = async (req, res, next) => {
   const { email, password } = req.body;
 
   const token = await loginServise(email, password);
-  console.log(token);
   res.status(statusCode.CREATED).json(token);
 };
 const getCurentUser = async (req, res, next) => {};

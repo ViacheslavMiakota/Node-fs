@@ -14,8 +14,9 @@ const authGuard = async (req, res, next) => {
     }
 
     const jwtPayload = jwt.verify(token, JWT_SECRET);
+    console.log(jwtPayload);
     const user = await User.findOne({ _id: jwtPayload.id });
-
+    console.log(user);
     if (!user) {
       throw new UnauthorizedException();
     }
