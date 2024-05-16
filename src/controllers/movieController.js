@@ -11,7 +11,6 @@ const { statusCode } = require("../helpers/codeError");
 const getMoviesController = async (req, res, next) => {
   try {
     const user = req.user;
-    console.log({ user });
     const movies = await getMovies();
     res.status(statusCode.OK).json(movies);
   } catch (error) {

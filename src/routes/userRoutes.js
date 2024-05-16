@@ -10,6 +10,7 @@ const {
   deleteUserController,
 } = require("../controllers/userController");
 const { asyncWrapper } = require("../helpers/apiHelpers");
+const { authGuard } = require("../middlewares/authGuard");
 
 usersRouter.post("/user", validateUser, asyncWrapper(addUserController));
 

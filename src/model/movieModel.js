@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { User } = require("./userModel");
 
 const { Schema } = mongoose;
 
@@ -26,7 +25,7 @@ const MovieShema = new Schema({
     required: true,
   },
   owner: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     ref: "user",
   },
 });
