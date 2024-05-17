@@ -4,6 +4,8 @@ const {
   getUserById,
   updateUserById,
   deleteUserById,
+  addFavoriteMovie,
+  getFavoriteMovies,
 } = require("../services/userService");
 
 const { statusCode } = require("../helpers/codeError");
@@ -71,6 +73,40 @@ const deleteUserController = async (req, res, next) => {
     next(error);
   }
 };
+const getCurentUserController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const user = await getUserById(userId);
+    if (!user) {
+      return next({
+        status: statusCode.UNAUTHORIZED,
+        message: "User is not authorized",
+      });
+    }
+    res.status(statusCode.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+const addFavoriteMovieController = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const { movieId } = req.body;
+    const user = await addFavoriteMovie(userId, movieId);
+    res.status(statusCode.OK).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+const getFavoriteMoviesController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const favorites = await getFavoriteMovies(userId);
+    res.status(statusCode.OK).json(favorites);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   addUserController,
@@ -78,4 +114,7 @@ module.exports = {
   getUserByIdController,
   updateUserByIdController,
   deleteUserController,
+  getCurentUserController,
+  addFavoriteMovieController,
+  getFavoriteMoviesController,
 };

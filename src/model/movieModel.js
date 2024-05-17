@@ -24,10 +24,10 @@ const MovieShema = new Schema({
     type: Number,
     required: true,
   },
-  owner: {
-    type: mongoose.Schema.ObjectId,
-    ref: "user",
-  },
+  // owner: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: "user",
+  // },
 });
 
 const Movie = mongoose.model("movie", MovieShema);

@@ -14,14 +14,14 @@ const { asyncWrapper } = require("../helpers/apiHelpers");
 
 const { authGuard } = require("../middlewares/authGuard");
 
-moviesRouter.post("/movie", asyncWrapper(addMovieController));
+moviesRouter.post("/movie", authGuard, asyncWrapper(addMovieController));
 
-moviesRouter.get("/movies", authGuard, asyncWrapper(getMoviesController));
+moviesRouter.get("/movies", asyncWrapper(getMoviesController));
 
 moviesRouter.get("/movie/:movieId", asyncWrapper(getMovieByIdController));
 
-moviesRouter.patch("/movie/:movieId", asyncWrapper(updateMovieByIdController));
+moviesRouter.patch("/movie/:movieId", authGuard, asyncWrapper(updateMovieByIdController));
 
-moviesRouter.delete("/movie/:movieId", asyncWrapper(deleteMovieController));
+moviesRouter.delete("/movie/:movieId", authGuard, asyncWrapper(deleteMovieController));
 
 module.exports = moviesRouter;

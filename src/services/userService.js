@@ -48,6 +48,28 @@ const deleteUserById = async (userId) => {
     throw error;
   }
 };
+const addFavoriteMovie = async (userId, movieId) => {
+  try {
+    const user = await User.findById(userId);
+    const favorite = user.favorites.includes(movieId);
+    if (!favorite) {
+      user.favorites.push(movieId);
+      await user.save();
+    }
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getFavoriteMovies = async (userId) => {
+  try {
+    const user = await User.findById(userId).populate("favorites");
+    return user.favorites;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   addUser,
@@ -55,4 +77,6 @@ module.exports = {
   getUserById,
   updateUserById,
   deleteUserById,
+  addFavoriteMovie,
+  getFavoriteMovies,
 };

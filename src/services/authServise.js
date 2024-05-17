@@ -25,7 +25,6 @@ const registerServise = async (email, password, name, phoneNumber) => {
 const loginServise = async (email, password) => {
   const user = await User.findOne({ email });
   const passwordCompare = await bcrypt.compare(password, user.password);
-
   if (!user || !passwordCompare) {
     throw new BadRequestException("Email or password invalid");
   }

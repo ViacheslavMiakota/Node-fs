@@ -1,8 +1,4 @@
-const {
-  registerServise,
-  loginServise,
-  getCurentUserServise,
-} = require("../services/authServise");
+const { registerServise, loginServise } = require("../services/authServise");
 
 const { statusCode } = require("../helpers/codeError");
 
@@ -18,6 +14,5 @@ const loginController = async (req, res, next) => {
   const token = await loginServise(email, password);
   res.status(statusCode.CREATED).json(token);
 };
-const getCurentUser = async (req, res, next) => {};
 
-module.exports = { registerController, loginController, getCurentUser };
+module.exports = { registerController, loginController };

@@ -18,9 +18,9 @@ const getMovieById = async (movieId) => {
   }
 };
 
-const addMovie = async (body) => {
+const addMovie = async (body, userId) => {
   try {
-    const newMovie = await Movie.create(body);
+    const newMovie = await Movie.create({ ...body, owner: userId });
     return newMovie;
   } catch (error) {
     throw error;

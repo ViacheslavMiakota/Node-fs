@@ -32,6 +32,10 @@ const UserSchema = new Schema(
         message: (props) => `${props.value} is not a valid phone number!`,
       },
     },
+    favoriteMovies: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "movie",
+    },
   },
   {
     versionKey: false,
