@@ -100,7 +100,7 @@ const addFavoriteMovieController = async (req, res, next) => {
 };
 const getFavoriteMoviesController = async (req, res, next) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const favorites = await getFavoriteMovies(userId);
     res.status(statusCode.OK).json(favorites);
   } catch (error) {

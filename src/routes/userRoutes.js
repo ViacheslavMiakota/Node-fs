@@ -21,7 +21,7 @@ usersRouter.get("/users", authGuard, asyncWrapper(getUsersController));
 
 usersRouter.get("/user/:userId", authGuard, asyncWrapper(getUserByIdController));
 
-usersRouter.patch("/user/:userId", authGuard, updateUserByIdController);
+usersRouter.patch("/user/:userId", authGuard, validateUser, updateUserByIdController);
 
 usersRouter.delete("/user/:userId", authGuard, deleteUserController);
 
