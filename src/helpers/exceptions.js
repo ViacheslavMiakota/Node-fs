@@ -40,10 +40,19 @@ class UnauthorizedException extends Error {
   }
 }
 
+class ServiceUnavailableException extends Error {
+  constructor(message = "Service unavailable") {
+    super();
+    this.message = message;
+    this.status = statusCode.SERVISE_UNAVAIABLE;
+  }
+}
+
 module.exports = {
   BadRequestException,
   ConflictException,
   ForbiddenException,
   NotFoundException,
   UnauthorizedException,
+  ServiceUnavailableException,
 };

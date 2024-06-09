@@ -5,6 +5,7 @@ const { registerController, loginController } = require("../controllers/authCont
 const { asyncWrapper } = require("../helpers/apiHelpers");
 
 authRouter.post("/register", asyncWrapper(registerController));
+authRouter.post("/register", asyncWrapper(registerController));
 
 authRouter.post("/login", asyncWrapper(loginController));
 

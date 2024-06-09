@@ -7,6 +7,7 @@ const statusCode = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   INTERNAL_SERVER_ERROR: 500,
+  SERVISE_UNAVAIABLE: 503,
 };
 
 module.exports = {

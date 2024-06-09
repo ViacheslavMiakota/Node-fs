@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { BadRequestException, ConflictException } = require("../helpers/exceptions");
+const { createVerificationCode } = require("./verificatinServise");
+const { sendVerificationEmail } = require("./mailingServise");
 
 const registerServise = async (email, password, name, phoneNumber) => {
   const existedUser = await User.findOne({ email });
@@ -13,12 +15,17 @@ const registerServise = async (email, password, name, phoneNumber) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const newUser = new User();
+  const newVerificationCode = await createVerificationCode(newUser.id);
+
   Object.assign(newUser, {
     email,
     password: hashedPassword,
     name,
     phoneNumber,
   });
+
+  await sendVerificationEmail(email, newVerificationCode);
+  await newVerificationCode.save();
   await newUser.save();
   return newUser;
 };
